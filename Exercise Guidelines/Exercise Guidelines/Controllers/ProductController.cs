@@ -1,5 +1,5 @@
-﻿using Exercise_Guidelines.Datos;
-using Exercise_Guidelines.Models;
+﻿using ExerciseGuidelines.Data;
+using ExerciseGuidelines.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;

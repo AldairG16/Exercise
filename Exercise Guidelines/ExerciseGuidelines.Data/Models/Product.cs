@@ -1,4 +1,4 @@
-﻿namespace Exercise_Guidelines.Models
+﻿namespace ExerciseGuidelines.Data.Models
 {
     public class Product
     {
@@ -13,5 +13,7 @@
         public string Company { get; set; }
 
         public decimal Price { get; set; }
+
+        public int ProductTypeID { get; set; }
     }
 }

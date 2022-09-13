@@ -1,4 +1,4 @@
-using Exercise_Guidelines.Datos;
+using ExerciseGuidelines.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

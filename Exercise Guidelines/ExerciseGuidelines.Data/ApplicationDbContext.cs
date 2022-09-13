@@ -1,12 +1,14 @@
-﻿using Exercise_Guidelines.Models;
+﻿
+using ExerciseGuidelines.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Exercise_Guidelines.Datos
+namespace ExerciseGuidelines.Data
 {
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
+            //TODO: Add comment here
         }
         public DbSet<Product> Product { get; set; }
 
