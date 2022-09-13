@@ -19,6 +19,7 @@ namespace Exercise_Guidelines.Controllers
         }
 
         [HttpGet]
+        //TODO: Chgane this
         public async Task<ActionResult<List<Product>>> GetAll()
         {
             return Ok(await _context.Product.ToListAsync());
