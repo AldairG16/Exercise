@@ -10,6 +10,7 @@ namespace ExerciseGuidelines.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
             //TODO: Add comment here
+
         }
         public DbSet<Product> Product { get; set; }
 
@@ -27,10 +28,15 @@ namespace ExerciseGuidelines.Data
             modelBuilder.Entity<ProductType>().HasKey(p => p.Id);
             modelBuilder.Entity<ProductType>().Property(p => p.Name).IsRequired().HasMaxLength(50);
 
-
-            base.OnModelCreating(modelBuilder);
-
             //Relacion uno a muchos
+
+            modelBuilder.Entity<ProductType>()
+                .HasMany(p => p.Products.Where(e => e.AgeRestriction > 10))
+                .WithOne(x => x.ProductType);
+
+                base.OnModelCreating(modelBuilder);
+
+            
 
             
                 

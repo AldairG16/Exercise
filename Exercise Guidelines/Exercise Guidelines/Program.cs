@@ -5,7 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 //configuramos la conexion a sql server
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("Conexionsql"))
+options.UseSqlServer(builder.Configuration.GetConnectionString("Conexionsql"),
+x => x.MigrationsAssembly("ExerciseGuidelines.Data"))
     );
 
 // Add services to the container.

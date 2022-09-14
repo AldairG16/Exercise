@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace ExerciseGuidelines.Data.Models
 {
     public class ProductType
@@ -11,6 +12,6 @@ namespace ExerciseGuidelines.Data.Models
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public List<Product> Product { get; set; }
+        public List<Product> Products { get; set; }
     }
 }
