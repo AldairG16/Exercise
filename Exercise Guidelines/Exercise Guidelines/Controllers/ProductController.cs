@@ -1,11 +1,12 @@
-﻿using ExerciseGuidelines.Data;
+﻿
+using ExerciseGuidelines.Data;
 using ExerciseGuidelines.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Reflection.Metadata.Ecma335;
 
-namespace Exercise_Guidelines.Controllers
+namespace Exercise_Guidelines.Controller
 {
     [Route("api/[controller]")]
     [ApiController]

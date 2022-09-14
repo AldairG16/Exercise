@@ -15,5 +15,7 @@
         public decimal Price { get; set; }
 
         public int ProductTypeID { get; set; }
+
+        public ProductType ProductType { get; set; }
     }
 }
