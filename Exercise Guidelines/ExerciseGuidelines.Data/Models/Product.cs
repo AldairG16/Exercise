@@ -1,4 +1,6 @@
-﻿namespace ExerciseGuidelines.Data.Models
+﻿using System.Text.Json.Serialization;
+
+namespace ExerciseGuidelines.Data.Models
 {
     public class Product
     {
@@ -14,6 +16,7 @@
 
         public decimal Price { get; set; }
 
+        [JsonIgnore]
         public int ProductTypeID { get; set; }
 
         public ProductType ProductType { get; set; }

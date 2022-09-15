@@ -31,10 +31,10 @@ namespace ExerciseGuidelines.Data
             //Relacion uno a muchos
 
             modelBuilder.Entity<ProductType>()
-                .HasMany(p => p.Products.Where(e => e.AgeRestriction > 10))
+                .HasMany(p => p.Products)
                 .WithOne(x => x.ProductType);
 
-                base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(modelBuilder);
 
             
 
