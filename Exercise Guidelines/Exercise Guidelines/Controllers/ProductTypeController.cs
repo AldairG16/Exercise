@@ -19,19 +19,26 @@ namespace Exercise_Guidelines.Controllers
 
         [HttpGet]
         //TODO: Chgane this
-        public async Task<ActionResult<List<ProductType>>> GetType(int Id)
+        public async Task<ActionResult<List<Product>>> GetProductWithType(int Id)
         {
-            _context.Product.Where(p => p.Id == Id).Include(x => x.ProductType);
-            return Ok();
+            var result = await _context.Product.Where(p => p.Id == Id).Include(x => x.ProductType).ToListAsync();
+            return Ok(result);
         }
 
         [HttpPost]
-        public async Task<ActionResult<ProductType>> AddType(ProductType Id)
+        public async Task<ActionResult<ProductType>> AddType(ProductType productType)
         {
-            var Type = await _context.Product.FindAsync(Id);
+            var Type = await _context.Product.FindAsync(productType);
+            if (Type is not null)
+            {
+                return BadRequest("Type already exist");
+                
+            }
             _context.Product.Add(Type);
             await _context.SaveChangesAsync();
-            return Ok(await _context.Product.ToListAsync());
+            return Ok(Type);
+
+
         }
     }
 }
