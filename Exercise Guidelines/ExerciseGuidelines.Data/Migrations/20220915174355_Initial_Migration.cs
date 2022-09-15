@@ -4,7 +4,7 @@
 
 namespace ExerciseGuidelines.Data.Migrations
 {
-    public partial class Tablas : Migration
+    public partial class Initial_Migration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,6 +44,11 @@ namespace ExerciseGuidelines.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "ProductType",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 1, "Tipo1" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Product_ProductTypeID",

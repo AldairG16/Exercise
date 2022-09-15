@@ -76,6 +76,13 @@ namespace ExerciseGuidelines.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProductType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Tipo1"
+                        });
                 });
 
             modelBuilder.Entity("ExerciseGuidelines.Data.Models.Product", b =>

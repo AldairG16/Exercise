@@ -15,10 +15,9 @@ namespace ExerciseGuidelines.Data.Models
         public string Company { get; set; }
 
         public decimal Price { get; set; }
-
-        [JsonIgnore]
         public int ProductTypeID { get; set; }
 
-        public ProductType ProductType { get; set; }
+        //Navigation Properties
+        public virtual ProductType? ProductType { get; set; }
     }
 }

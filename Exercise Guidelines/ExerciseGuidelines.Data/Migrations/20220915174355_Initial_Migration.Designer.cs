@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExerciseGuidelines.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220915033953_Tablas")]
-    partial class Tablas
+    [Migration("20220915174355_Initial_Migration")]
+    partial class Initial_Migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -78,6 +78,13 @@ namespace ExerciseGuidelines.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProductType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Tipo1"
+                        });
                 });
 
             modelBuilder.Entity("ExerciseGuidelines.Data.Models.Product", b =>

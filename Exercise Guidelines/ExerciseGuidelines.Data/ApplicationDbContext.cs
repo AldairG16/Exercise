@@ -2,38 +2,28 @@
 using ExerciseGuidelines.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.Reflection;
 
 namespace ExerciseGuidelines.Data
 {
     public class ApplicationDbContext : DbContext
     {
+        public DbSet<Product> Product { get; set; }
+        public DbSet<ProductType> ProductType { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
             //TODO: Add comment here
 
         }
-        public DbSet<Product> Product { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+
             //Product
-            modelBuilder.Entity<Product>().HasKey(p => p.Id);
-            modelBuilder.Entity<Product>().Property(P => P.Name).IsRequired().HasMaxLength(50);
-            modelBuilder.Entity<Product>().Property(P => P.Description).HasMaxLength(100);
-            modelBuilder.Entity<Product>().Property(P => P.AgeRestriction);
-            modelBuilder.Entity<Product>().Property(P => P.Company).IsRequired().HasMaxLength(50);
-            modelBuilder.Entity<Product>().Property(P => P.Price).IsRequired().HasColumnType("decimal");
-
-            //ProductType
-            modelBuilder.Entity<ProductType>().HasKey(p => p.Id);
-            modelBuilder.Entity<ProductType>().Property(p => p.Name).IsRequired().HasMaxLength(50);
-
-            //Relacion uno a muchos
-
-            modelBuilder.Entity<ProductType>()
-                .HasMany(p => p.Products)
-                .WithOne(x => x.ProductType);
-
+            
             base.OnModelCreating(modelBuilder);
 
             
