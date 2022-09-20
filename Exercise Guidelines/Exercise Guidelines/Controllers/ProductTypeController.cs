@@ -34,18 +34,25 @@ namespace Exercise_Guidelines.Controllers
             }
         }
 
-        //[HttpPost]
-        //public async Task<ActionResult<ProductType>> AddType(ProductType productType)
-        //{
-        //    var Type = await _context.Product.FindAsync(productType);
-        //    if (Type is not null)
-        //    {
-        //        return BadRequest("Type already exist");
+        [HttpPost]
+        public async Task<IActionResult> AddType(ProductType Type)
+        {
+            try
+            {
+                var result = await _productTypeService.AddType(Type);
+                if (result is null)
+                {
+                    return BadRequest("Type already exist");
+                }
+
+                return Ok(result);
+
                 
-        //    }
-        //    _context.Product.Add(Type);
-        //    await _context.SaveChangesAsync();
-        //    return Ok(Type);
-        //}
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
     }
 }

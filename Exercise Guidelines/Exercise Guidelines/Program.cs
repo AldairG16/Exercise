@@ -1,6 +1,7 @@
 using ExerciseGuidelines.Data;
 using ExerciseGuidelines.Services;
 using ExerciseGuidelines.Services.Interfaces;
+using ExerciseGuidelines.Services.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -22,6 +23,7 @@ builder.Services.AddSwaggerGen();
 
 //Add Dependency Injection services
 builder.Services.AddScoped<IProductTypeService, ProductTypeService>();
+builder.Services.AddScoped<IProductServices, ProductService>();
 
 
 var app = builder.Build();
