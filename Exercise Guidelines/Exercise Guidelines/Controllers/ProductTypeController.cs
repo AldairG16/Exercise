@@ -1,14 +1,10 @@
-﻿using ExerciseGuidelines.Data;
-using ExerciseGuidelines.Data.Models;
-using ExerciseGuidelines.Services;
+﻿using ExerciseGuidelines.Data.Models;
 using ExerciseGuidelines.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Exercise_Guidelines.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/productype")]
     [ApiController]
     public class ProductTypeController : ControllerBase
     {
@@ -21,11 +17,11 @@ namespace Exercise_Guidelines.Controllers
 
         [HttpGet]
         //TODO: Chgane this
-        public async Task<ActionResult<List<Product>>> GetProductWithType(int Id)
+        public async Task<ActionResult<List<Product>>> GetProductWithType(int id)
         {
             try
             {
-                var result = await _productTypeService.GetProductWithType(Id);
+                var result = await _productTypeService.GetProductWithTypeAsync(id);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -35,11 +31,11 @@ namespace Exercise_Guidelines.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddType(ProductType Type)
+        public async Task<IActionResult> AddType(ProductType type)
         {
             try
             {
-                var result = await _productTypeService.AddType(Type);
+                var result = await _productTypeService.AddTypeAsync(type);
                 if (result is null)
                 {
                     return BadRequest("Type already exist");
@@ -54,5 +50,10 @@ namespace Exercise_Guidelines.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+        //[HttpPost]
+        //public ActionResult Post([FromBody] ProductType productType)
+        //{
+        //    return Ok("Resultado valido");
+        //}
     }
 }

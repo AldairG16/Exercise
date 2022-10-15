@@ -2,8 +2,9 @@ using ExerciseGuidelines.Data;
 using ExerciseGuidelines.Services;
 using ExerciseGuidelines.Services.Interfaces;
 using ExerciseGuidelines.Services.Services;
+using ExerciseGuidelines.Services.Validations;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,8 +15,10 @@ x => x.MigrationsAssembly("ExerciseGuidelines.Data"))
     );
 
 // Add services to the container.
-builder.Services.AddControllers().AddJsonOptions(x =>
-   x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve); 
+builder.Services.AddControllers();
+builder.Services.AddValidatorsFromAssemblyContaining<ProductValidation>();
+//.AddJsonOptions(x =>
+//x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve); 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -23,7 +26,7 @@ builder.Services.AddSwaggerGen();
 
 //Add Dependency Injection services
 builder.Services.AddScoped<IProductTypeService, ProductTypeService>();
-builder.Services.AddScoped<IProductServices, ProductService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 
 var app = builder.Build();
@@ -49,7 +52,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+//app.UseAuthorization();
 
 app.MapControllers();
 

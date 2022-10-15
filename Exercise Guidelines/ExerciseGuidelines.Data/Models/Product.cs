@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using FluentValidation;
+using FluentValidation.AspNetCore;
+using System.Text.Json.Serialization;
 
 namespace ExerciseGuidelines.Data.Models
 {
@@ -19,5 +21,8 @@ namespace ExerciseGuidelines.Data.Models
 
         //Navigation Properties
         public virtual ProductType? ProductType { get; set; }
+
+        
+
     }
 }

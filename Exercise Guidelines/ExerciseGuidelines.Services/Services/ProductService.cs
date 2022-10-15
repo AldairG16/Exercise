@@ -2,16 +2,10 @@
 using ExerciseGuidelines.Data.Models;
 using ExerciseGuidelines.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExerciseGuidelines.Services.Services
 {
-    public class ProductService : IProductServices
+    public class ProductService : IProductService
     {
         private readonly ApplicationDbContext _context;
         public ProductService(ApplicationDbContext context)
@@ -19,11 +13,13 @@ namespace ExerciseGuidelines.Services.Services
             _context = context;
         }
 
-        public async Task<List<Product>> GetAll()
+        public async Task<List<Product>> GetAllAsync()
         {
             try
             {
-                return await _context.Product.AsNoTracking().ToListAsync();
+                var x = await _context.Product.AsNoTracking().ToListAsync();
+                return x;
+            
             }
             catch
             {
@@ -31,14 +27,14 @@ namespace ExerciseGuidelines.Services.Services
             }
         }
 
-        public async Task<Product> Get(int Id)
+        public async Task<Product> GetAsync(int id)
         {
             try
             {
-                var Toy = await _context.Product.FindAsync(Id);
-                if (Toy == null)
-                    throw new Exception($"Toy with {Id} was not found.");
-                return Toy;
+                var toy = await _context.Product.FindAsync(id);
+                if (toy == null)
+                    throw new Exception($"Toy with {id} was not found.");
+                return toy;
             }
             catch
             {
@@ -47,11 +43,11 @@ namespace ExerciseGuidelines.Services.Services
             
         }
 
-        public async Task<List<Product>> AddToy(Product Toy)
+        public async Task<List<Product>> AddToyAsync(Product toy)
         {
             try
             {
-                _context.Product.Add(Toy);
+                _context.Product.Add(toy);
                 await _context.SaveChangesAsync();
                 return await _context.Product.ToListAsync();
             }
@@ -62,7 +58,7 @@ namespace ExerciseGuidelines.Services.Services
             
         }
 
-        public async Task<List<Product>> UpdateToy(Product request)
+        public async Task<List<Product>> UpdateToyAsync(Product request)
         {
             try
             {
@@ -84,17 +80,17 @@ namespace ExerciseGuidelines.Services.Services
             }
             
         }
-        public async Task<bool> DeleteAsync(int Id)
+        public async Task<bool> DeleteAsync(int id)
         {
             try
             {
-                var Toy = await _context.Product.FindAsync(Id);
-                if (Toy == null)
+                var dbToy = await _context.Product.FindAsync(id);
+                if (dbToy == null)
                     throw new Exception($"Toy not found.");
 
-                _context.Product.Remove(Toy);
+                _context.Product.Remove(dbToy);
                 await _context.SaveChangesAsync();
-                return true;  
+                return true;
             }
 
             catch
@@ -102,9 +98,8 @@ namespace ExerciseGuidelines.Services.Services
                 return false;
                 throw;
             }
-            
-        }
 
+        }
         
     }
 }

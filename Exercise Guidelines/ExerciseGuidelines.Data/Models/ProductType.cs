@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentValidation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,5 +16,14 @@ namespace ExerciseGuidelines.Data.Models
 
         //Navigation Properties
         public virtual List<Product>? Products { get; set; }
+
+        //public class ProductTypeValidator : AbstractValidator<ProductType>
+        //{
+        //    public ProductTypeValidator()
+        //    {
+        //        RuleFor(model => model.Id).NotEmpty().WithMessage("Campo Requerido");
+        //        RuleFor(model => model.Name).MaximumLength(50).WithMessage("Maximo de caracteres es 50");
+        //    }
+        //}
     }
 }

@@ -4,7 +4,7 @@
 
 namespace ExerciseGuidelines.Data.Migrations
 {
-    public partial class Initial_Migration : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

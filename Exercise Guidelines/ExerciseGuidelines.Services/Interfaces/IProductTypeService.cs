@@ -9,9 +9,9 @@ namespace ExerciseGuidelines.Services.Interfaces
 {
     public interface IProductTypeService
     {
-        Task<List<Product>> GetProductWithType(int Id);
+        Task<List<Product>> GetProductWithTypeAsync(int Id);
 
-        Task<ProductType> AddType(ProductType productType);
+        Task<ProductType> AddTypeAsync(ProductType productType);
         
 
         

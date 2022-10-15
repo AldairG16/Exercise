@@ -1,32 +1,40 @@
-﻿
-using ExerciseGuidelines.Data;
-using ExerciseGuidelines.Data.Models;
+﻿using ExerciseGuidelines.Data.Models;
 using ExerciseGuidelines.Services.Interfaces;
+using ExerciseGuidelines.Services.Validations;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Reflection.Metadata.Ecma335;
 
 namespace Exercise_Guidelines.Controller
 {
-    [Route("api/[controller]")]
+    [Route("api/product")]
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IProductServices _ProductServices;
-        
-        public ProductController( IProductServices ProductServices)
+        private readonly IProductService _productServices;
+
+        private IValidator<Product> _validator;
+
+        public ProductController( IProductService productServices)
         {
-            _ProductServices = ProductServices;
+            _productServices = productServices;
+       
+        }
+       
+
+        public ProductController(IValidator<Product> validator)
+        {
+            _validator = validator;
         }
 
         [HttpGet]
-        //TODO: Chgane this
+        //TODO producto
         public async Task<IActionResult> GetAll()
         {
+
             try
             {
-                return Ok(await _ProductServices.GetAll());
+                var products = await _productServices.GetAllAsync();
+                return Ok(products);
             }
             catch (Exception ex)
             {
@@ -36,14 +44,14 @@ namespace Exercise_Guidelines.Controller
         }
 
         [HttpGet("{Id}")]
-        public async Task<IActionResult> Get(int Id)
+        public async Task<IActionResult> Get(int id)
         {
             try
             {
-                var Toy = await _ProductServices.Get(Id);
-                if (Toy == null)
+                var toy = await _productServices.GetAsync(id);
+                if (toy == null)
                     return BadRequest("Toy not found.");
-                return Ok(Toy);
+                return Ok(toy);
                 
             }
             catch(Exception ex)
@@ -54,13 +62,13 @@ namespace Exercise_Guidelines.Controller
                 
             
         }
-
+        [Route("addToy")]
         [HttpPost]
-        public async Task<IActionResult> AddToy(Product Toy)
+        public async Task<IActionResult> AddToy(Product toy)
         {
             try
             {
-               return Ok(await _ProductServices.AddToy(Toy));
+               return Ok(await _productServices.AddToyAsync(toy));
                
             }
             catch(Exception ex)
@@ -75,7 +83,7 @@ namespace Exercise_Guidelines.Controller
         {
             try
             {
-                return Ok(await _ProductServices.UpdateToy(request));
+                return Ok(await _productServices.UpdateToyAsync(request));
             }
             catch(Exception ex)
             {
@@ -84,11 +92,11 @@ namespace Exercise_Guidelines.Controller
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete(int Id)
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                if ((await _ProductServices.DeleteAsync(Id) == true))
+                if ((await _productServices.DeleteAsync(id) == true))
                     return NoContent();
                 return NotFound();
             }
@@ -98,7 +106,20 @@ namespace Exercise_Guidelines.Controller
             }
         }
 
+        [Route("Validation")]
+        [HttpPost]
+        public async Task<IActionResult> PostValidation2(ProductValidation productValidator, [FromServices] IValidator<ProductValidation> validationRules)
+        {
+            var result = await validationRules.ValidateAsync(productValidator);
+            if (!result.IsValid)
+            {
+                return BadRequest("NO SIRVE");
+            }
 
+            return Ok("Resultado valido");
+        }
+
+        
     }    
     
 }      

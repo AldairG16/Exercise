@@ -13,11 +13,11 @@ namespace ExerciseGuidelines.Services
         {
             _context = context;
         }
-        public async Task<List<Product>> GetProductWithType(int Id)
+        public async Task<List<Product>> GetProductWithTypeAsync(int id)
         {
             try
             {
-                var result = await _context.Product.Where(p => p.Id == Id).Include(x => x.ProductType).ToListAsync();
+                var result = await _context.Product.Where(p => p.Id == id).Include(x => x.ProductType).ToListAsync();
                 return result;
             }
             catch (Exception)
@@ -25,17 +25,17 @@ namespace ExerciseGuidelines.Services
                 throw;
             }
         }
-        public async Task<ProductType> AddType(ProductType productType)
+        public async Task<ProductType> AddTypeAsync(ProductType productType)
         {
             try
             {
-                var Type = await _context.Product.FindAsync(productType);
-                if (Type is not null)
+                var type = await _context.Product.FindAsync(productType);
+                if (type is not null)
                 {
                     throw new("Type already exist");
 
                 }
-                _context.Product.Add(Type);
+                _context.Product.Add(type);
                 await _context.SaveChangesAsync();
                 return (productType);
             }

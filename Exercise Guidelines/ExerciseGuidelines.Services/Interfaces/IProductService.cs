@@ -7,17 +7,19 @@ using System.Threading.Tasks;
 
 namespace ExerciseGuidelines.Services.Interfaces
 {
-    public interface IProductServices
+    public interface IProductService
     {
-        Task<List<Product>> GetAll();
+        Task<List<Product>> GetAllAsync();
 
-        Task<Product> Get(int Id);
+        Task<Product> GetAsync(int Id);
 
-        Task<List<Product>> AddToy(Product Toy);
+        Task<List<Product>> AddToyAsync(Product Toy);
 
-        Task<List<Product>> UpdateToy(Product request);
+        Task<List<Product>> UpdateToyAsync(Product request);
 
         Task<bool> DeleteAsync(int Id);
+
+     
 
 
 
